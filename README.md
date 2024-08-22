@@ -1,14 +1,14 @@
 # express-init-setup
-[ ] Git SetUp
-    [] git install
-    [] add .gitignore for node via vscode extension
-    [] git init
+- [ ] Git SetUp
+    - [ ] git install
+    - [ ] add .gitignore for node via vscode extension
+    - [ ] git init
         - rm -rf .git
-    [] echo "# express-init-setup" >> README.md
-    [] git add .
-    [] git commit -m "add .gitignore"
-    [] signIn to GitHub / new repo {auth-service}
-    [] setup SSH Protocol SetUp
+    - [ ] echo "# express-init-setup" >> README.md
+    - [ ] git add .
+    - [ ] git commit -m "add .gitignore"
+    - [ ] signIn to GitHub / new repo {auth-service}
+    - [ ] setup SSH Protocol SetUp
         - cat ~/.ssh/id_rsa.pub | clip (in Bash)
         - https://www.freecodecamp.org/news/manage-multiple-github-accounts-the-ssh-way-2dadc30ccaca/
         - git config list
@@ -16,4 +16,14 @@
         - git config user.email "user1@workMail.com"
         - git remote rm origin
         - git remote add origin git@github.com-work_user1:work_user1/repo_name.git
-    [] push to new remote repo
+    - [ ] push to new remote repo
+
+- [ ] Node version Manager
+    - nvm allows you to quickly install and use diff version of node via cmd
+    - Node Version Manager - POSIX-compliant bash script to manage multiple active node.js versions
+    - [ ] install nvm acc to O.S
+        - use curl in git bash terminal && add cmd in .bashrc and .bash_profile (for windows)
+    - [ ] .nvmrc  >> v18.17.1 || v18.20.4
+        - echo v18.20.4 > .nvmrc
+    - [ ] node -v  |  nvm ls -remote  |  nvm install  |  nvm use
+    - [ ] nvm -v  |  nvm ls  |  nvm use v18.17.1
