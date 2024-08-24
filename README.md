@@ -33,3 +33,15 @@
     - [ ] mkdir src | touch src/server.js 
     - [ ] "dev": "node src/server.js"
     - [ ] npm run dev
+
+- [ ] Typescript SetUp
+    - TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale by adding types and features
+    - type declaration | auto completion in IDE | better error checking at compile time
+    - [ ] npm i -D typescript   (./nodemodules/typescript)
+    - [ ] npm i -D @types/node  (./nodemodules/@types/node)
+    - [ ] npx tsc --init  |  ./nodemodules/.bin/tsc --init
+        - It will create tsconfig.json file
+        - "target": "es2016" | "module":"common.js" (require synx) | "rootDir":"./src" | "outDir":"./dist"
+        - tsconfig > {{ }, "include":["src"]} (it will ignore file outside src)
+        - "noEmitOnError":true      (It will Disable emitting compiled files if any typechecking error)
+    - [ ] tsc -w    |   tsc -w ./src ./dist    |   tsc --noEmitOnError -w ./src/server.ts ./dist/server.js
