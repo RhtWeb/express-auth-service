@@ -27,3 +27,9 @@
         - echo v18.20.4 > .nvmrc
     - [ ] node -v  |  nvm ls -remote  |  nvm install  |  nvm use
     - [ ] nvm -v  |  nvm ls  |  nvm use v18.17.1
+
+- [ ] NodeJs Project SetUp
+    - [ ] npm init (package.json file created)
+    - [ ] mkdir src | touch src/server.js 
+    - [ ] "dev": "node src/server.js"
+    - [ ] npm run dev

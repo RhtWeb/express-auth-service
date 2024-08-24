@@ -1,0 +1,16 @@
+{
+  "name": "express-init-setup",
+  "version": "1.0.0",
+  "description": "Professional express app setUp",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node src/server.js"
+  },
+  "keywords": [
+    "Express",
+    "App",
+    "SetUp"
+  ],
+  "author": "Rohitify",
+  "license": "ISC"
+}
