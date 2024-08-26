@@ -1,20 +1,23 @@
 {
-  "name": "express-init-setup",
-  "version": "1.0.0",
-  "description": "Professional express app setUp",
-  "main": "src/server.js",
-  "scripts": {
-    "dev": "node src/server.js"
-  },
-  "keywords": [
-    "Express",
-    "App",
-    "SetUp"
-  ],
-  "author": "Rohitify",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^22.5.0",
-    "typescript": "^5.5.4"
-  }
+    "name": "express-init-setup",
+    "version": "1.0.0",
+    "description": "Professional express app setUp",
+    "main": "src/server.js",
+    "scripts": {
+        "dev": "node src/server.js",
+        "format:check": "prettier . --check",
+        "format:write": "prettier . --write"
+    },
+    "keywords": [
+        "Express",
+        "App",
+        "SetUp"
+    ],
+    "author": "Rohitify",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^22.5.0",
+        "prettier": "3.3.3",
+        "typescript": "^5.5.4"
+    }
 }
