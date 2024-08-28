@@ -71,9 +71,20 @@
     -   [ ] npm run formate:check
 
 -   [ ] ESLint Integration
+
     -   static code Analyser during development to quickly find problem acc. to series of assertions called lint rules (focus on code quality)
     -   https://typescript-eslint.io/
     -   [ ] npm install --save-dev eslint @eslint/js @types/eslint\_\_js typescript typescript-eslint
     -   [ ] configure your eslint.config.mjs (ESModule) file
     -   [ ] ignores: ["dist", "node_modules", "eslint.config.mjs"]
     -   [ ] npm install --save-dev eslint-config-prettier - https://github.com/prettier/eslint-config-prettier - add eslintConfigPrettier at the end of eslint.config.mjs file -[ ] "lint:fix": "eslint . --fix", "lint": "eslint ." > pakage.json -[ ] npx eslint . -[ ] ESLint extension by Microsoft
+
+-   [ ] Implimenting Git Hooks
+    -   [ ] npm install --save-dev husky
+        -   Husky helps in implementing git hooks
+        -   [ ] npm install --save-dev husky
+            -   creates .husky folder and in package.jsonscripts.prepare = "husky"
+    -   [ ] npm install --save-dev lint-staged
+        -   Run linters on git staged files
+        -   [ ] "lint-staged": { "\*.ts": ["npm run lint:fix", "npm run format:fix"] } > package.json
+    -   [ ] npx lint-staged > .husky/pre-commit
