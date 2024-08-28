@@ -56,6 +56,7 @@
     -   [ ] tsc -w | tsc -w ./src ./dist | tsc --noEmitOnError -w ./src/server.ts ./dist/server.js
 
 -   [ ] Prettier for code formating
+
     -   It helps in auto code formating via quotes marks, semi color, spaces, tab, formate consistency in the project, So that you can focus more on business logic
     -   [ ] npm install --save-dev --save-exact prettier (exact version No changes at all)
     -   [ ] echo {} > .prettierrc.json
@@ -68,3 +69,11 @@
     -   [ ] npx prettier . --check | npx prettier . --write
     -   [ ] { "format:check" : "prettier . --check", "format:fix" : "prettier . --write" }
     -   [ ] npm run formate:check
+
+-   [ ] ESLint Integration
+    -   static code Analyser during development to quickly find problem acc. to series of assertions called lint rules (focus on code quality)
+    -   https://typescript-eslint.io/
+    -   [ ] npm install --save-dev eslint @eslint/js @types/eslint\_\_js typescript typescript-eslint
+    -   [ ] configure your eslint.config.mjs (ESModule) file
+    -   [ ] ignores: ["dist", "node_modules", "eslint.config.mjs"]
+    -   [ ] npm install --save-dev eslint-config-prettier - https://github.com/prettier/eslint-config-prettier - add eslintConfigPrettier at the end of eslint.config.mjs file -[ ] "lint:fix": "eslint . --fix", "lint": "eslint ." > pakage.json -[ ] npx eslint . -[ ] ESLint extension by Microsoft
