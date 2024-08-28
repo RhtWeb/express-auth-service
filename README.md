@@ -82,7 +82,7 @@
 -   [ ] Implimenting Git Hooks
     -   [ ] npm install --save-dev husky
         -   Husky helps in implementing git hooks
-        -   [ ] npm install --save-dev husky
+        -   [ ] npx husky init
             -   creates .husky folder and in package.jsonscripts.prepare = "husky"
     -   [ ] npm install --save-dev lint-staged
         -   Run linters on git staged files
