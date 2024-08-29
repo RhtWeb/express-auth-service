@@ -2,9 +2,9 @@
     "name": "express-init-setup",
     "version": "1.0.0",
     "description": "Professional express app setUp",
-    "main": "src/server.js",
+    "main": "dist/server.js",
     "scripts": {
-        "dev": "node src/server.js",
+        "dev": "tsc && node dist/server.js",
         "format:check": "prettier . --check",
         "format:fix": "prettier . --write",
         "lint:fix": "eslint . --fix",
@@ -36,5 +36,8 @@
             "npm run format:fix"
         ],
         "*.md": "npm run format:fix"
+    },
+    "dependencies": {
+        "dotenv": "^16.4.5"
     }
 }

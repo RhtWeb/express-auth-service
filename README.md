@@ -26,10 +26,10 @@
     -   Node Version Manager - POSIX-compliant bash script to manage multiple active node.js versions
     -   [ ] install nvm acc to O.S
         -   use curl in git bash terminal && add cmd in .bashrc and .bash_profile (for windows)
-    -   [ ] .nvmrc >> v18.17.1 || v18.20.4
-        -   echo v18.20.4 > .nvmrc
+    -   [ ] .nvmrc >> v20.17.0
+        -   echo v20.17.0 > .nvmrc
     -   [ ] node -v | nvm ls -remote | nvm install | nvm use
-    -   [ ] nvm -v | nvm ls | nvm use v18.17.1
+    -   [ ] nvm -v | nvm ls | nvm use v20.17.0
 
 -   NPM (Node Package Manager) {maybe Nimble Porridge Muncher :) }
 
@@ -53,7 +53,8 @@
         -   "target": "es2016" | "module":"common.js" (require synx) | "rootDir":"./src" | "outDir":"./dist"
         -   tsconfig > {{ }, "include":["src"]} (it will ignore file outside src)
         -   "noEmitOnError":true (It will Disable emitting compiled files if any typechecking error)
-    -   [ ] tsc -w | tsc -w ./src ./dist | tsc --noEmitOnError -w ./src/server.ts ./dist/server.js
+    -   [ ] tsc -w | npx tsc | tsc -w ./src ./dist | tsc --noEmitOnError -w ./src/server.ts ./dist/server.js
+    -   [ ] script.dev= "tsc && node dist/server.js",
 
 -   [ ] Prettier for code formating
 
@@ -80,6 +81,7 @@
     -   [ ] npm install --save-dev eslint-config-prettier - https://github.com/prettier/eslint-config-prettier - add eslintConfigPrettier at the end of eslint.config.mjs file -[ ] "lint:fix": "eslint . --fix", "lint": "eslint ." > pakage.json -[ ] npx eslint . -[ ] ESLint extension by Microsoft
 
 -   [ ] Implimenting Git Hooks
+
     -   [ ] npm install --save-dev husky
         -   Husky helps in implementing git hooks
         -   [ ] npx husky init
@@ -88,3 +90,10 @@
         -   Run linters on git staged files
         -   [ ] "lint-staged": { "\*.ts": ["npm run lint:fix", "npm run format:fix"] } > package.json
     -   [ ] npx lint-staged > .husky/pre-commit
+
+-   [ ] Application Config SetUp
+    -   PORT=5000 node dist/server.js
+    -   [ ] npm install dotenv
+        -   [ ] touch .env > PORT=5555
+        -   [ ] make src/config/index.ts > export all variables > Config.PORT
+        -   config files are made because variable can be from .env or other files
