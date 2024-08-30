@@ -92,8 +92,19 @@
     -   [ ] npx lint-staged > .husky/pre-commit
 
 -   [ ] Application Config SetUp
+
     -   PORT=5000 node dist/server.js
     -   [ ] npm install dotenv
         -   [ ] touch .env > PORT=5555
         -   [ ] make src/config/index.ts > export all variables > Config.PORT
         -   config files are made because variable can be from .env or other files
+
+-   [ ] Express App Config
+    -   [ ] npm install express
+    -   [ ] npm install -D @types/express ts-node nodemon
+    -   [ ] touch src/app.ts
+        -   initialize Express and export app | import in server file and listen to app in startServer function
+    -   [ ] scripts.dev = "nodemon src/server.ts"
+        -   nodemon under the hood uses ts-node to run typescript file
+            -   ts-node src/server.ts
+        -   alternative to nodemon and ts-node is ts-node-dev

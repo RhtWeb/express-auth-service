@@ -4,7 +4,8 @@
     "description": "Professional express app setUp",
     "main": "dist/server.js",
     "scripts": {
-        "dev": "tsc && node dist/server.js",
+        "dev": "nodemon src/server.ts",
+        "dev:tsc": "tsc && node dist/server.js",
         "format:check": "prettier . --check",
         "format:fix": "prettier . --write",
         "lint:fix": "eslint . --fix",
@@ -21,12 +22,15 @@
     "devDependencies": {
         "@eslint/js": "^9.9.1",
         "@types/eslint__js": "^8.42.3",
+        "@types/express": "^4.17.21",
         "@types/node": "^22.5.0",
         "eslint": "^9.9.1",
         "eslint-config-prettier": "^9.1.0",
         "husky": "^9.1.5",
         "lint-staged": "^15.2.9",
+        "nodemon": "^3.1.4",
         "prettier": "3.3.3",
+        "ts-node": "^10.9.2",
         "typescript": "^5.5.4",
         "typescript-eslint": "^8.3.0"
     },
@@ -38,6 +42,7 @@
         "*.md": "npm run format:fix"
     },
     "dependencies": {
-        "dotenv": "^16.4.5"
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2"
     }
 }
