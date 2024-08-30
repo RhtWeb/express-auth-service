@@ -1,5 +1,6 @@
 import app from "./app";
 import { Config } from "./config";
+import logger from "./config/logger";
 
 // pretttier and eslint error
 // function login(name: string): string {
@@ -17,16 +18,27 @@ import { Config } from "./config";
 function startServer() {
     try {
         const { PORT, NODE_ENV } = Config;
+        logger.debug("trying to start server");
+        // throw new Error("Someting went wrong, cannot start the server!!")
         app.listen(Config.PORT, () => {
             if (PORT && NODE_ENV) {
-                console.log(
+                logger.info(
                     `[Server]: In ${NODE_ENV} envornment listing to port ${PORT}`,
+                    { server: "running" },
                 );
+                // console.log(
+                //     `[Server]: In ${NODE_ENV} envornment listing to port ${PORT}`
+                // );
             }
         });
     } catch (err) {
-        console.log(err);
-        process.exit(1);
+        if (err instanceof Error) {
+            logger.error(err.message);
+            // console.error(err.message);
+            setTimeout(() => {
+                process.exit(1);
+            }, 1000);
+        }
     }
 }
 

@@ -100,6 +100,7 @@
         -   config files are made because variable can be from .env or other files
 
 -   [ ] Express App Config
+
     -   [ ] npm install express
     -   [ ] npm install -D @types/express ts-node nodemon
     -   [ ] touch src/app.ts
@@ -108,3 +109,8 @@
         -   nodemon under the hood uses ts-node to run typescript file
             -   ts-node src/server.ts
         -   alternative to nodemon and ts-node is ts-node-dev
+
+-   [ ] Logger SetUp [winston]
+    -   [ ] npm i winston
+    -   [ ] touch src/config/logger.ts
+    -   [ ] winston.createLogger({ level, format, defaultMeta, transports[] });
