@@ -2,24 +2,14 @@ import app from "./app";
 import { Config } from "./config";
 import logger from "./config/logger";
 
-// pretttier and eslint error
-// function login(name: string): string {
-//     const user = { firstname: "Rohit",
-//     };
-//     const firstname = user[firstname];
-//     console.log(`${name} ${firstname} ur TS is compiled`);
-//     return firstname + name;
-// }
-
-// login("computer");
-
-// console.log("PORT", Config.PORT);
-
 function startServer() {
     try {
         const { PORT, NODE_ENV } = Config;
         logger.debug("trying to start server");
-        // throw new Error("Someting went wrong, cannot start the server!!")
+        // throw new Error("Someting went wrong, cannot start the server!")
+        // OR
+        // const err = createHttpError(500, 'Someting went wrong, cannot start the server!!');
+        // throw err;
         app.listen(Config.PORT, () => {
             if (PORT && NODE_ENV) {
                 logger.info(

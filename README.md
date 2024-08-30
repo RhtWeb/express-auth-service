@@ -111,6 +111,15 @@
         -   alternative to nodemon and ts-node is ts-node-dev
 
 -   [ ] Logger SetUp [winston]
+
     -   [ ] npm i winston
     -   [ ] touch src/config/logger.ts
     -   [ ] winston.createLogger({ level, format, defaultMeta, transports[] });
+
+-   [ ] Implementing Error Handling
+    -   [ ] npm i http-errors
+    -   [ ] npm i -D @types/http-errors
+    -   [ ] create a global error handler middleware
+        -   app.use((err, req, res, next) => { res.json({ errors:[{type, message, path, location}]})})
+        -   const err = createError(401, 'Not Authorised to access the resource');
+        -   sync > throw err | async > next(err)
