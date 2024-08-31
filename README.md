@@ -135,3 +135,5 @@
         -   testing HTTP
     -   [ ] create app.spec.ts | app.test.ts
         -   describe("App", ()=>{ it("", ()=>{ }) })
+
+[ ] Project Template - [ ] create .env.example
