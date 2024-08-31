@@ -14,10 +14,13 @@
         -   cat ~/.ssh/id_rsa.pub | clip (in Bash)
         -   https://www.freecodecamp.org/news/manage-multiple-github-accounts-the-ssh-way-2dadc30ccaca/
         -   git config list
+        -   ~/.gitconfig > gobal | projectName/.git/config > repo
         -   git config user.name "User 1" // Updates git config user name
         -   git config user.email "user1@workMail.com"
+        -   git config user.name && git config user.email
         -   git remote rm origin
         -   git remote add origin git@github.com-work_user1:work_user1/repo_name.git
+        -   git remote add template git@github.com-work_user2:work_user2/repo_name.git
     -   [ ] push to new remote repo
 
 -   [ ] Node version Manager
