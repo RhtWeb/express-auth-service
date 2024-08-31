@@ -78,7 +78,7 @@
     -   [ ] npm install --save-dev eslint @eslint/js @types/eslint\_\_js typescript typescript-eslint
     -   [ ] configure your eslint.config.mjs (ESModule) file
     -   [ ] ignores: ["dist", "node_modules", "eslint.config.mjs"]
-    -   [ ] npm install --save-dev eslint-config-prettier - https://github.com/prettier/eslint-config-prettier - add eslintConfigPrettier at the end of eslint.config.mjs file -[ ] "lint:fix": "eslint . --fix", "lint": "eslint ." > pakage.json -[ ] npx eslint . -[ ] ESLint extension by Microsoft
+    -   [ ] npm install --save-dev eslint-config-prettier @types/eslint-config-prettier - https://github.com/prettier/eslint-config-prettier - add eslintConfigPrettier at the end of eslint.config.mjs file -[ ] "lint:fix": "eslint . --fix", "lint": "eslint ." > pakage.json -[ ] npx eslint . -[ ] ESLint extension by Microsoft
 
 -   [ ] Implimenting Git Hooks
 
@@ -117,9 +117,21 @@
     -   [ ] winston.createLogger({ level, format, defaultMeta, transports[] });
 
 -   [ ] Implementing Error Handling
+
     -   [ ] npm i http-errors
     -   [ ] npm i -D @types/http-errors
     -   [ ] create a global error handler middleware
         -   app.use((err, req, res, next) => { res.json({ errors:[{type, message, path, location}]})})
         -   const err = createError(401, 'Not Authorised to access the resource');
         -   sync > throw err | async > next(err)
+
+-   [ ] Test SetUp [jest]
+    -   [ ] npm i -D jest @types/jest ts-jest
+    -   [ ] "test": "jest --watch --runInBand"
+        -   runInBand for test to serially | by default it run concurrently
+        -   JavaScript Testing Framework
+    -   [ ] npx ts-jest config:init
+    -   [ ] npm install -D supertest @types/supertest
+        -   testing HTTP
+    -   [ ] create app.spec.ts | app.test.ts
+        -   describe("App", ()=>{ it("", ()=>{ }) })

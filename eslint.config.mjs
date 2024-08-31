@@ -19,7 +19,7 @@ export default tseslint.config(
     ...tseslint.configs.stylisticTypeChecked,
     {
         // I dont know ignoring eslint.config.mjs is correct way or not
-        ignores: ["dist", "node_modules", "eslint.config.mjs"],
+        ignores: ["dist", "node_modules", "eslint.config.mjs", "jest.config.js"],
     },
     {
         rules: {
