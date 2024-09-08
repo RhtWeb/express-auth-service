@@ -3,7 +3,7 @@ import { HttpError } from "http-errors";
 import logger from "./config/logger";
 
 const app = express();
-app.use(express.json());
+// app.use(express.json());
 
 // /* eslint-disable @typescript-eslint/no-misused-promises */
 // // eslint-disable-next-line @typescript-eslint/require-await

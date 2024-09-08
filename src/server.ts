@@ -13,11 +13,11 @@ function startServer() {
         app.listen(Config.PORT, () => {
             if (PORT && NODE_ENV) {
                 logger.info(
-                    `[Server]: In ${NODE_ENV} envornment listing to port ${PORT}`,
+                    `[Server]: In ${NODE_ENV} environment listing to port ${PORT}`,
                     { server: "running" },
                 );
                 // console.log(
-                //     `[Server]: In ${NODE_ENV} envornment listing to port ${PORT}`
+                //     `[Server]: In ${NODE_ENV} environment listing to port ${PORT}`
                 // );
             }
         });
