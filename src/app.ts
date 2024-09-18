@@ -2,6 +2,8 @@ import express, { NextFunction, Request, Response } from "express";
 import { HttpError } from "http-errors";
 import logger from "./config/logger";
 
+import authRouter from "./routes/auth";
+
 const app = express();
 // app.use(express.json());
 
@@ -18,6 +20,12 @@ app.get("/", function (req, res) {
     // throw err;
     res.send("Hello World");
 });
+
+// app.post("/auth/register", (req, res)=>{
+//     res.status(201).send();
+// })
+
+app.use("/auth", authRouter);
 
 app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
     const statusCode = err.statusCode || 500;
