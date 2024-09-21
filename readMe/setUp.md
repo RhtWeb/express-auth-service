@@ -22,6 +22,7 @@
         -   git remote add origin git@github.com-work_user1:work_user1/repo_name.git
         -   git remote add template git@github.com-work_user2:work_user2/repo_name.git
     -   [ ] push to new remote repo
+    -   git checkout -b <branch> && git push -u origin <branch>
 
 -   [ ] Node version Manager
 
