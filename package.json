@@ -4,7 +4,7 @@
     "description": "Professional express app setUp",
     "main": "dist/server.js",
     "scripts": {
-        "dev": "nodemon -L src/server.ts",
+        "dev": "cross-env NODE_ENV=development nodemon -L src/server.ts",
         "dev:tsc": "tsc && node dist/server.js",
         "format:check": "prettier . --check",
         "format:fix": "prettier . --write",
@@ -20,7 +20,7 @@
         "App",
         "SetUp"
     ],
-    "author": "Rohitify",
+    "author": "Rohit Singh",
     "license": "ISC",
     "devDependencies": {
         "@eslint/js": "^9.9.1",
@@ -31,6 +31,7 @@
         "@types/jest": "^29.5.12",
         "@types/node": "^16.11.10",
         "@types/supertest": "^6.0.2",
+        "cross-env": "^7.0.3",
         "eslint": "^9.9.1",
         "eslint-config-prettier": "^9.1.0",
         "husky": "^9.1.5",

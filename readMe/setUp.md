@@ -130,6 +130,7 @@
         -   sync > throw err | async > next(err)
 
 -   [ ] Test SetUp [jest]
+
     -   [ ] npm i -D jest @types/jest ts-jest
     -   [ ] "test": "jest --watch --runInBand"
         -   runInBand for test to serially | by default it run concurrently
@@ -140,4 +141,11 @@
     -   [ ] create app.spec.ts | app.test.ts
         -   describe("App", ()=>{ it("", ()=>{ }) })
 
-[ ] Project Template - [ ] create .env.example
+-   [ ] Project Template
+    -   [ ] touch .env.example
+    -   [ ] touch .env.test
+    -   [ ] touch .env.development
+    -   [ ] src/config/index.ts -> export Config (for access for env variables)
+    -   [ ] npm install --save-dev cross-env
+        -   scripts.dev: "cross-env NODE_ENV=development nodemon -L src/server.ts";
+        -   cross-env makes it so you can have a single command without worrying about setting or using the environment variable properly for the platform
