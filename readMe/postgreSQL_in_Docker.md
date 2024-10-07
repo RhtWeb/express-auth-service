@@ -24,6 +24,8 @@ docker volume ls
     ```bash
     docker run --rm --name mernpg-container -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -v mernpgdata:/var/lib/postgresql/data -p 5432:5432 -d postgres
 
+    docker run --rm --name pgauth-container -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -v pgauthvol:/var/lib/postgresql/data -p 5432:5432 -d postgres
+
     ```
 
     This command does the following:
