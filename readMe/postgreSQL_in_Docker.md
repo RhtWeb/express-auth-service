@@ -88,7 +88,8 @@ Happy coding! 🚀👩‍💻👨‍💻
         It Provides a layer b/w app & DB, It provides some API which can be used easily to interact with DB, instead of writing tipical query
 
     - TypeORM
-        It is an ORM that can run in NodeJs, Browser, Ionic, React Native, Electron etc
-        It helps in DB plug in & out easily
-        The **Data Mapper** approach helps with maintainability, which is more effective in larger apps.
-        The Active Record approach helps keep things simple which works well in smaller apps. And simplicity is always a key to better maintainability.
+        -   It is an ORM that can run in NodeJs, Browser, Ionic, React Native, Electron etc
+        -   It helps in DB plug in & out easily
+        -   The **Data Mapper** approach helps with maintainability, which is more effective in larger apps.
+        -   The Active Record approach helps keep things simple which works well in smaller apps. And simplicity is always a key to better maintainability.
+        -   We will use Repository Api instead of Entity Manager Api in TypeORM (Anyone is good, personal choice)
