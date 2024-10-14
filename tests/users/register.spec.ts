@@ -4,6 +4,7 @@ import { AppDataSource } from "../../src/config/data-source";
 import { DataSource } from "typeorm";
 import { truncateTables } from "../utils";
 import { User } from "../../src/entity/User";
+import { Role } from "../../src/constants";
 
 // describe is used for grouping and also sub grouping
 describe("POST /auth/register", () => {
@@ -16,7 +17,9 @@ describe("POST /auth/register", () => {
 
     beforeEach(async () => {
         // truncate the database
-        await truncateTables(connection);
+        // await truncateTables(connection);
+        await connection.dropDatabase();
+        await connection.synchronize();
     });
 
     afterAll(async () => {
@@ -97,6 +100,24 @@ describe("POST /auth/register", () => {
                 .send(userData);
 
             expect(res.body.id).toBeDefined();
+        });
+
+        it("should assign a customer role", async () => {
+            const userData = {
+                firstName: "Rohit",
+                lastName: "Singh",
+                email: "rht@gmail.com",
+                password: "secret",
+            };
+
+            await request(app).post("/auth/register").send(userData);
+
+            const userRepository = connection.getRepository(User);
+
+            const users = await userRepository.find();
+
+            expect(users[0]).toHaveProperty("role");
+            expect(users[0].role).toBe(Role.CUSTOMER);
         });
     });
 

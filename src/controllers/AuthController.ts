@@ -4,12 +4,14 @@
 import { NextFunction, Request, Response } from "express";
 import { UserService } from "../services/UserService";
 import { Logger } from "winston";
+import { Role } from "../constants";
 
 export interface UserData {
     firstName: string;
     lastName: string;
     email: string;
     password: string;
+    role: string;
 }
 interface RegisterUserRequest extends Request {
     body: UserData;
@@ -41,6 +43,7 @@ export class AuthController {
                 lastName,
                 email,
                 password,
+                role: Role.CUSTOMER,
             });
             this.logger.info("User hase been registered", { id: user.id });
             res.status(201).json(user);
