@@ -163,6 +163,7 @@ describe("POST /auth/register", () => {
 
     // Sad Path (if fields are missing)
     describe("Fields are missing", () => {
+        // validation
         it("should return 400 if email dont exists", async () => {
             const userData = {
                 firstName: "Rohit",
@@ -181,5 +182,34 @@ describe("POST /auth/register", () => {
             const users = await userRepository.find();
             expect(users).toHaveLength(0);
         });
+
+        it.todo("should return 400 status code if firstName is missing");
+        it.todo("should return 400 status code if lastName is missing");
+        it.todo("should return 400 status code if password is missing");
+    });
+
+    describe("Fields are not in proper format", () => {
+        // Sanitization
+        it("should trim the email field", async () => {
+            const userData = {
+                firstName: "Rohit",
+                lastName: "Singh",
+                email: " rht@gmail.com ",
+                password: "secret",
+            };
+
+            await request(app).post("/auth/register").send(userData);
+
+            const userRepository = connection.getRepository(User);
+            const users = await userRepository.find();
+
+            expect(users[0].email).toBe("rht@gmail.com");
+        });
+
+        it.todo("should return 400 status code if email is not valid email");
+        it.todo(
+            "should return 400 status code if password lenght is less than 8 chars",
+        );
+        it.todo("should return an error array message if email is missing");
     });
 });
