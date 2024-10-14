@@ -83,6 +83,21 @@ describe("POST /auth/register", () => {
             expect(users[0].lastName).toBe(userData.lastName);
             expect(users[0].email).toBe(userData.email);
         });
+
+        it("should return ID of created user", async () => {
+            const userData = {
+                firstName: "Rohit",
+                lastName: "Singh",
+                email: "rht@gmail.com",
+                password: "secret",
+            };
+
+            const res = await request(app)
+                .post("/auth/register")
+                .send(userData);
+
+            expect(res.body.id).toBeDefined();
+        });
     });
 
     // Sad Path (if fields are missing)
