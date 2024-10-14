@@ -2,17 +2,15 @@
 // its a personal choice to use class or function some feel goos to group in class
 
 import { NextFunction, Request, Response } from "express";
-import bcrypt from "bcrypt";
-import { UserService } from "../services/UserService";
 import { Logger } from "winston";
-import { Role } from "../constants";
+
+import { UserService } from "../services/UserService";
 
 export interface UserData {
     firstName: string;
     lastName: string;
     email: string;
     password: string;
-    role: string;
 }
 interface RegisterUserRequest extends Request {
     body: UserData;
@@ -31,23 +29,19 @@ export class AuthController {
     ) {
         const { firstName, lastName, email, password } = req.body;
 
-        // this.logger.debug("New Request to register a User", {
-        //     firstName,
-        //     lastName,
-        //     email,
-        //     password: "*******",
-        // });
-
-        const saltRounds = 10; // magic number - to be readable code
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        this.logger.debug("New Request to register a User", {
+            firstName,
+            lastName,
+            email,
+            password: "*******",
+        });
 
         try {
             const user = await this.userService.create({
                 firstName,
                 lastName,
                 email,
-                password: hashedPassword,
-                role: Role.CUSTOMER,
+                password,
             });
             this.logger.info("User hase been registered", { id: user.id });
             res.status(201).json(user);

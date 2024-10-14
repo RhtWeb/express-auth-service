@@ -137,6 +137,28 @@ describe("POST /auth/register", () => {
             expect(users[0].password).not.toBe(userData.password);
             expect(users[0].password).toMatch(/^\$2b\$\d+\$/);
         });
+
+        it("should have unique user email", async () => {
+            const userData = {
+                firstName: "Rohit",
+                lastName: "Singh",
+                email: "rht@gmail.com",
+                password: "secret",
+            };
+
+            const userRepository = connection.getRepository(User);
+
+            await userRepository.save({ ...userData, role: Role.CUSTOMER });
+
+            const response = await request(app)
+                .post("/auth/register")
+                .send(userData);
+
+            const users = await userRepository.find();
+
+            expect(response.statusCode).toBe(400);
+            expect(users).toHaveLength(1);
+        });
     });
 
     // Sad Path (if fields are missing)
