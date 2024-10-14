@@ -1,8 +1,9 @@
 // if u make a class first letter to be capital its just a convention
 // its a personal choice to use class or function some feel goos to group in class
 
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { UserService } from "../services/UserService";
+import { Logger } from "winston";
 
 export interface UserData {
     firstName: string;
@@ -15,17 +16,37 @@ interface RegisterUserRequest extends Request {
 }
 
 export class AuthController {
-    constructor(private userService: UserService) {}
+    constructor(
+        private userService: UserService,
+        private logger: Logger,
+    ) {}
 
-    async register(req: RegisterUserRequest, res: Response) {
+    async register(
+        req: RegisterUserRequest,
+        res: Response,
+        next: NextFunction,
+    ) {
         const { firstName, lastName, email, password } = req.body;
-        const user = await this.userService.create({
+
+        this.logger.debug("New Request to register a User", {
             firstName,
             lastName,
             email,
-            password,
+            password: "*******",
         });
-        res.status(201).json(user);
+
+        try {
+            const user = await this.userService.create({
+                firstName,
+                lastName,
+                email,
+                password,
+            });
+            this.logger.info("User hase been registered", { id: user.id });
+            res.status(201).json(user);
+        } catch (err) {
+            next(err);
+        }
     }
 }
 
