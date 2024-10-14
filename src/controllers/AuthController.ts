@@ -2,6 +2,7 @@
 // its a personal choice to use class or function some feel goos to group in class
 
 import { NextFunction, Request, Response } from "express";
+import bcrypt from "bcrypt";
 import { UserService } from "../services/UserService";
 import { Logger } from "winston";
 import { Role } from "../constants";
@@ -30,19 +31,22 @@ export class AuthController {
     ) {
         const { firstName, lastName, email, password } = req.body;
 
-        this.logger.debug("New Request to register a User", {
-            firstName,
-            lastName,
-            email,
-            password: "*******",
-        });
+        // this.logger.debug("New Request to register a User", {
+        //     firstName,
+        //     lastName,
+        //     email,
+        //     password: "*******",
+        // });
+
+        const saltRounds = 10; // magic number - to be readable code
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
 
         try {
             const user = await this.userService.create({
                 firstName,
                 lastName,
                 email,
-                password,
+                password: hashedPassword,
                 role: Role.CUSTOMER,
             });
             this.logger.info("User hase been registered", { id: user.id });
