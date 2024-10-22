@@ -11,6 +11,8 @@ import { validationResult } from "express-validator";
 import path from "path";
 import createHttpError from "http-errors";
 
+import { Config } from "../config";
+
 export interface UserData {
     firstName: string;
     lastName: string;
@@ -84,7 +86,12 @@ export class AuthController {
                 issuer: "auth-service",
             });
 
-            const refreshToken = "dkfdfkfndk";
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            const refreshToken = sign(payload, Config.REFRESH_TOKEN_SECRET!, {
+                algorithm: "HS256",
+                expiresIn: "1y",
+                issuer: "auth-service",
+            });
 
             res.cookie("accessToken", accessToken, {
                 domain: "localhost",
