@@ -5,6 +5,7 @@ import { DataSource } from "typeorm";
 import { isJwt, truncateTables } from "../utils";
 import { User } from "../../src/entity/User";
 import { Role } from "../../src/constants";
+import { RefreshToken } from "../../src/entity/RefreshToken";
 
 // describe is used for grouping and also sub grouping
 describe("POST /auth/register", () => {
@@ -196,6 +197,36 @@ describe("POST /auth/register", () => {
 
             expect(isJwt(accessToken)).toBeTruthy();
             expect(isJwt(refreshToken)).toBeTruthy();
+        });
+
+        it("should store the refresh token in the DB", async () => {
+            const userData = {
+                firstName: "Rohit",
+                lastName: "Singh",
+                email: "rht@gmail.com",
+                password: "secret1234",
+            };
+
+            const response = await request(app)
+                .post("/auth/register")
+                .send(userData);
+
+            const refreshTokenRepo = connection.getRepository(RefreshToken);
+
+            // const refreshTokens = await refreshTokenRepo.find();
+
+            // expect(refreshTokens).toHaveLength(1);
+
+            // to check expicitly where the created token belongs to intended user
+
+            const tokens = await refreshTokenRepo
+                .createQueryBuilder("refreshToken")
+                .where("refreshToken.userId = :userId", {
+                    userId: response.body.id,
+                })
+                .getMany();
+
+            expect(tokens).toHaveLength(1);
         });
     });
 
