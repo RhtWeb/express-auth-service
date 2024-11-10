@@ -1,19 +1,14 @@
 // if u make a class first letter to be capital its just a convention
 // its a personal choice to use class or function some feel goos to group in class
-import fs from "fs";
 
 import { NextFunction, Request, Response } from "express";
 import { Logger } from "winston";
-import { JwtPayload, sign } from "jsonwebtoken";
+import { JwtPayload } from "jsonwebtoken";
 
 import { UserService } from "../services/UserService";
 import { validationResult } from "express-validator";
-import path from "path";
-import createHttpError from "http-errors";
 
-import { Config } from "../config";
-import { AppDataSource } from "../config/data-source";
-import { RefreshToken } from "../entity/RefreshToken";
+import { TokenService } from "../services/TokenService";
 
 export interface UserData {
     firstName: string;
@@ -29,6 +24,7 @@ export class AuthController {
     constructor(
         private userService: UserService,
         private logger: Logger,
+        private tokenService: TokenService,
     ) {}
 
     async register(
@@ -60,48 +56,20 @@ export class AuthController {
             });
             this.logger.info("User hase been registered", { id: user.id });
 
-            let privateKey: Buffer;
-
-            try {
-                privateKey = fs.readFileSync(
-                    path.join(__dirname, "../../certs/private.pem"),
-                );
-
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            } catch (err) {
-                const error = createHttpError(
-                    500,
-                    "Error while reading private key",
-                );
-                next(error);
-                return;
-            }
-
             const payload: JwtPayload = {
                 sub: String(user.id),
                 role: user.role,
             };
 
-            const accessToken = sign(payload, privateKey, {
-                algorithm: "RS256",
-                expiresIn: "1h",
-                issuer: "auth-service",
-            });
+            // TokenService.prototype.generateAccessToken(payload);
+            const accessToken = this.tokenService.generateAccessToken(payload);
 
-            const MS_IN_YEAR = 1000 * 60 * 60 * 24 * 365; //1Y
+            const newRefreshToken =
+                await this.tokenService.persistRefreshToken(user);
 
-            const refreshTokenRepo = AppDataSource.getRepository(RefreshToken);
-            const newRefreshToken = await refreshTokenRepo.save({
-                user: user,
-                expiresAt: new Date(Date.now() + MS_IN_YEAR),
-            });
-
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            const refreshToken = sign(payload, Config.REFRESH_TOKEN_SECRET!, {
-                algorithm: "HS256",
-                expiresIn: "1y",
-                issuer: "auth-service",
-                jwtid: String(newRefreshToken.id),
+            const refreshToken = this.tokenService.generateRefreshToken({
+                ...payload,
+                id: newRefreshToken,
             });
 
             res.cookie("accessToken", accessToken, {
@@ -131,6 +99,6 @@ export class AuthController {
 
 // But Since we want to do Dependency Injestion - we will export the class itself and instansiate it after import in routes
 
-// Service layer should not containe framework code or middleware, It should be free of it and only pure JS/TS code, So that is could easily copied from one codebase to another
+// Controller layer should not containe framework code or middleware, It should be free of it and only pure JS/TS code, So that is could easily copied from one codebase to another
 
 // Use Dependency Injection for DeCoupling
