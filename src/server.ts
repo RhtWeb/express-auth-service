@@ -1,8 +1,9 @@
 import app from "./app";
 import { Config } from "./config";
+import { AppDataSource } from "./config/data-source";
 import logger from "./config/logger";
 
-function startServer() {
+async function startServer() {
     try {
         const { PORT, NODE_ENV } = Config;
         logger.debug("trying to start server");
@@ -10,6 +11,11 @@ function startServer() {
         // OR
         // const err = createHttpError(500, 'Someting went wrong, cannot start the server!!');
         // throw err;
+
+        // DB initialization
+        await AppDataSource.initialize();
+        logger.info("DataBase initialized successfully.");
+
         app.listen(Config.PORT, () => {
             if (PORT && NODE_ENV) {
                 logger.info(
@@ -32,4 +38,4 @@ function startServer() {
     }
 }
 
-startServer();
+void startServer();

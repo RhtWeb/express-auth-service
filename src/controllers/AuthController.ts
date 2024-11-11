@@ -88,7 +88,7 @@ export class AuthController {
                 // secure: true, // https
             });
 
-            res.status(201).json(user);
+            res.status(201).json({ ...user, password: undefined });
         } catch (err) {
             next(err);
         }
