@@ -9,6 +9,8 @@ import { UserService } from "../services/UserService";
 import { validationResult } from "express-validator";
 
 import { TokenService } from "../services/TokenService";
+import createHttpError from "http-errors";
+import { CredentialService } from "../services/CredentialService";
 
 export interface UserData {
     firstName: string;
@@ -25,6 +27,7 @@ export class AuthController {
         private userService: UserService,
         private logger: Logger,
         private tokenService: TokenService,
+        private credentialService: CredentialService,
     ) {}
 
     async register(
@@ -69,7 +72,7 @@ export class AuthController {
 
             const refreshToken = this.tokenService.generateRefreshToken({
                 ...payload,
-                id: newRefreshToken,
+                id: String(newRefreshToken.id),
             });
 
             res.cookie("accessToken", accessToken, {
@@ -89,6 +92,82 @@ export class AuthController {
             });
 
             res.status(201).json({ ...user, password: undefined });
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async login(req: RegisterUserRequest, res: Response, next: NextFunction) {
+        // Validation
+        const result = validationResult(req);
+        if (!result.isEmpty()) {
+            return res.status(400).json({ errors: [...result.array()] });
+        }
+
+        const { email, password } = req.body;
+        try {
+            // if email exists
+            const existingUser =
+                await this.userService.findByEmailWithPassword(email);
+            if (!existingUser) {
+                const err = createHttpError(
+                    400,
+                    "email or password is incorrect",
+                );
+                next(err);
+                return;
+            }
+            // match password
+
+            const hashedPassword = existingUser.password;
+            // const isMatchedPassword = bcrypt.compareSync(password, hashedPassword);
+            const isMatchedPassword =
+                await this.credentialService.comparePassword(
+                    password,
+                    hashedPassword,
+                );
+
+            if (!isMatchedPassword) {
+                const err = createHttpError(
+                    400,
+                    "email or password is incorrect",
+                );
+                next(err);
+                return;
+            }
+
+            const payload: JwtPayload = {
+                sub: String(existingUser.id),
+                role: existingUser.role,
+            };
+
+            const accessToken = this.tokenService.generateAccessToken(payload);
+
+            const newRefreshToken =
+                await this.tokenService.persistRefreshToken(existingUser);
+
+            const refreshToken = this.tokenService.generateRefreshToken({
+                ...payload,
+                id: String(newRefreshToken.id),
+            });
+
+            res.cookie("accessToken", accessToken, {
+                domain: "localhost",
+                sameSite: "strict",
+                maxAge: 1000 * 60 * 60, //1hr
+                httpOnly: true, //important
+                // secure: true, // https
+            });
+
+            res.cookie("refreshToken", refreshToken, {
+                domain: "localhost",
+                sameSite: "strict",
+                maxAge: 1000 * 60 * 60 * 24 * 365, //1yr
+                httpOnly: true, //important
+                // secure: true, // https
+            });
+
+            res.json({ ...existingUser, password: undefined });
         } catch (err) {
             next(err);
         }
